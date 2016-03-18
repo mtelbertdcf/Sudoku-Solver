@@ -17,6 +17,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6318E1191C9C889E00089089 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6318E1141C9C889B00089089 /* MtTools.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 634581041C8A17B5004BF9FA;
+			remoteInfo = MtTools;
+		};
+		6318E11B1C9C889E00089089 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6318E1141C9C889B00089089 /* MtTools.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6345810E1C8A17B5004BF9FA;
+			remoteInfo = MtToolsTests;
+		};
 		6371768D1C7CE34B009504DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6371766D1C7CE34A009504DE /* Project object */;
@@ -27,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6318E1141C9C889B00089089 /* MtTools.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MtTools.xcodeproj; path = ../Learn/MtTools/MtTools.xcodeproj; sourceTree = "<group>"; };
 		637176751C7CE34A009504DE /* Sudoku Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sudoku Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		637176781C7CE34A009504DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6371767A1C7CE34A009504DE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,9 +73,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6318E1151C9C889B00089089 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6318E11A1C9C889E00089089 /* MtTools.framework */,
+				6318E11C1C9C889E00089089 /* MtToolsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6318E11D1C9C88B600089089 /* External Projects */ = {
+			isa = PBXGroup;
+			children = (
+				6318E1141C9C889B00089089 /* MtTools.xcodeproj */,
+			);
+			name = "External Projects";
+			sourceTree = "<group>";
+		};
 		6371766C1C7CE34A009504DE = {
 			isa = PBXGroup;
 			children = (
+				6318E11D1C9C88B600089089 /* External Projects */,
 				637176771C7CE34A009504DE /* Sudoku Solver */,
 				6371768F1C7CE34B009504DE /* Sudoku SolverTests */,
 				637176761C7CE34A009504DE /* Products */,
@@ -167,6 +200,12 @@
 			mainGroup = 6371766C1C7CE34A009504DE;
 			productRefGroup = 637176761C7CE34A009504DE /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 6318E1151C9C889B00089089 /* Products */;
+					ProjectRef = 6318E1141C9C889B00089089 /* MtTools.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				637176741C7CE34A009504DE /* Sudoku Solver */,
@@ -174,6 +213,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		6318E11A1C9C889E00089089 /* MtTools.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MtTools.framework;
+			remoteRef = 6318E1191C9C889E00089089 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6318E11C1C9C889E00089089 /* MtToolsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MtToolsTests.xctest;
+			remoteRef = 6318E11B1C9C889E00089089 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		637176731C7CE34A009504DE /* Resources */ = {
@@ -390,6 +446,7 @@
 				637176971C7CE34B009504DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		637176981C7CE34B009504DE /* Build configuration list for PBXNativeTarget "Sudoku SolverTests" */ = {
 			isa = XCConfigurationList;
@@ -398,6 +455,7 @@
 				6371769A1C7CE34B009504DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
