@@ -5,14 +5,13 @@
 
 import Foundation
 
-struct Grid {
-    init() {
+class Grid {
+    convenience init() {
         self.init(3)
     }
 
     init(_ size: Int) {
         self.grid = Array(count: size, repeatedValue: Array(count: size, repeatedValue: 0))
-        self.grid[0][0] = 1
     }
 
     var size: Int {
@@ -21,8 +20,8 @@ struct Grid {
         }
     }
 
-    func valueAt(row: Int, col: Int) {
-        return self.grid[0][0]
+    func valueAt(row: Int, col: Int) -> Int {
+        return self.grid[row][col]
     }
 
     func place(piece: Piece, row: Int, col: Int) {
