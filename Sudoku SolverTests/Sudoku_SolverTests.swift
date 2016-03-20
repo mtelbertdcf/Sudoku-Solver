@@ -32,5 +32,11 @@ class Sudoku_SolverTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+
+    func testGrid() {
+        var grid = Grid();
+        XCTAssert(grid.size == 3)
+
+    }
     
 }

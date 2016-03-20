@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5AF0E45535CFD7047C6C803C /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF0E45E5CC8220C514721D1 /* Piece.swift */; };
+		5AF0EAC8126F70D03598767A /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF0EC6C6F6A1846E46353CA /* Grid.swift */; };
 		637176791C7CE34A009504DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637176781C7CE34A009504DE /* AppDelegate.swift */; };
 		6371767B1C7CE34A009504DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6371767A1C7CE34A009504DE /* ViewController.swift */; };
 		6371767E1C7CE34A009504DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6371767C1C7CE34A009504DE /* Main.storyboard */; };
@@ -41,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5AF0E45E5CC8220C514721D1 /* Piece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
+		5AF0EC6C6F6A1846E46353CA /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		6318E1141C9C889B00089089 /* MtTools.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MtTools.xcodeproj; path = ../Learn/MtTools/MtTools.xcodeproj; sourceTree = "<group>"; };
 		637176751C7CE34A009504DE /* Sudoku Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sudoku Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		637176781C7CE34A009504DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 				637176841C7CE34A009504DE /* LaunchScreen.storyboard */,
 				637176871C7CE34A009504DE /* Info.plist */,
 				6371767F1C7CE34A009504DE /* Sudoku_Solver.xcdatamodeld */,
+				5AF0EC6C6F6A1846E46353CA /* Grid.swift */,
+				5AF0E45E5CC8220C514721D1 /* Piece.swift */,
 			);
 			path = "Sudoku Solver";
 			sourceTree = "<group>";
@@ -259,6 +265,8 @@
 				637176811C7CE34A009504DE /* Sudoku_Solver.xcdatamodeld in Sources */,
 				6371767B1C7CE34A009504DE /* ViewController.swift in Sources */,
 				637176791C7CE34A009504DE /* AppDelegate.swift in Sources */,
+				5AF0EAC8126F70D03598767A /* Grid.swift in Sources */,
+				5AF0E45535CFD7047C6C803C /* Piece.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
