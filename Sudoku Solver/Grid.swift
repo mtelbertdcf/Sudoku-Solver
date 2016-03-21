@@ -5,6 +5,10 @@
 
 import Foundation
 
+enum MyError: ErrorType {
+    case MyFirstError
+}
+
 class Grid {
     convenience init() {
         self.init(3)
@@ -16,24 +20,40 @@ class Grid {
 
     var size: Int {
         get {
-            return grid.count
+            return self.grid.count;
         }
     }
 
-    func valueAt(row: Int, col: Int) -> Int {
+    func valueAt(row: Int, _ col: Int) -> Int {
         return self.grid[row][col]
     }
 
-    func place(piece: Piece, row: Int, col: Int) {
+    func place(value: Int, _ row: Int, _ col: Int) throws {
+        if (!self.canPlace(value, row, col)) {
+            throw MyError.MyFirstError;
+        }
 
+        self.grid[row][col] = value
     }
 
-    func remove(row: Int, col: Int) {
+    func canPlace(value: Int, _ row: Int, _ col: Int) -> Bool {
+        return self.grid[row][col] == 0;
+    }
 
+    func tryPlace(value: Int, row: Int, col: Int) -> Bool {
+        if (self.canPlace(value, row, col)) {
+            try! self.place(value, row, col)
+            return true;
+        }
+        return false;
+    }
+
+    func remove(row: Int, _ col: Int) {
+        self.grid[row][col] = 0
     }
 
     func removeAll() {
-
+        self.grid = Array(count: self.size, repeatedValue: Array(count: self.size, repeatedValue: 0))
     }
 
     private var grid: [[Int]];
