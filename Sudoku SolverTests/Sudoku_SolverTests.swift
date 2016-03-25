@@ -116,30 +116,34 @@ class Sudoku_SolverTests: XCTestCase {
 
 
     func testAnalysis() {
-        let grid = Grid(representation: self.easyPuzzle2)
-
-
-        while (!grid.solve()) {
-            var open = grid.getOpenPositions()
-            var poss = grid.getPossiblePlacements(open.first!)
-            var copy = grid.clone()
-
-            grid.tryPlace(poss.first!, position: open.first!);
-        }
-
+        // auto-populate from my string and make sure its consistent
+        var grid = Grid(representation: self.evilPuzzle)
+        XCTAssertNotNil(Grid.solve(grid))
         var filled = grid.toString()
     }
 
-//    private let hardPuzzle =
-//            "810620000" +
-//            "000800100" +
-//            "004001830" +
-//            "040307250" +
-//            "006000900" +
-//            "078405010" +
-//            "081700500" +
-//            "007009000" +
-//            "000086029"
+
+    private let hardPuzzle =
+    "810620000" +
+            "000800100" +
+            "004001830" +
+            "040307250" +
+            "006000900" +
+            "078405010" +
+            "081700500" +
+            "007009000" +
+            "000086029"
+
+    private let evilPuzzle =
+    "000080000" +
+            "060000308" +
+            "040502700" +
+            "520908100" +
+            "000000000" +
+            "009306057" +
+            "001204030" +
+            "408000070" +
+            "000060000"
 
     private let easyPuzzle =
     "100304000" +
@@ -163,4 +167,14 @@ class Sudoku_SolverTests: XCTestCase {
             "600320900" +
             "403001800"
 
+    private let easyPuzzle3 =
+    "009186007" +
+            "080500009" +
+            "050000300" +
+            "900370012" +
+            "723000895" +
+            "510029004" +
+            "001000020" +
+            "400003070" +
+            "300718500"
 }
