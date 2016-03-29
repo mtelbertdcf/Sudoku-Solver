@@ -7,13 +7,25 @@
 //
 
 import UIKit
+import MtTools
+import CoreGraphics
 
-class ViewController: UIViewController {
-    @IBOutlet weak var textFeildGrid: UITextView!
+class ViewController: UIViewController, UITextViewDelegate {
+    @IBOutlet weak var textFieldGrid: UITextView!
+    @IBOutlet weak var buttonSolve: UIButton!
+    @IBOutlet weak var gridView: GridView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        self.textFieldGrid.delegate = self
+
+        // initialize looks
+
+        buttonSolve.layer.borderWidth = 1.0
+        buttonSolve.layer.borderColor = UIColor.blueColor().CGColor
+        buttonSolve.layer.cornerRadius = 5.0
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,12 +34,13 @@ class ViewController: UIViewController {
     }
 
     @IBAction func buttonSolveClicked(sender: AnyObject) -> Void {
-        let alert = UIAlertController(title: "Solve", message: "You want to solve the puzzle!", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
 
-        var grid = Grid(representation: self.textFeildGrid.text, autoFill: false)
-        grid = Grid.solve(grid)!
-        self.textFeildGrid.text = grid.toString()
+        self.gridView.setData(Grid.solve(Grid(representation: self.textFieldGrid.text))!)
     }
+
+    // UITextViewDelegate
+
+    func textViewDidBeginEditing(textView: UITextView) {
+    }
+
 }

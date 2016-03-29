@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Sudoku Solver.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "634581031C8A17B5004BF9FA"
+               BuildableName = "MtTools.framework"
+               BlueprintName = "MtTools"
+               ReferencedContainer = "container:../Learn/MtTools/MtTools.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -36,6 +50,16 @@
                BuildableName = "Sudoku SolverTests.xctest"
                BlueprintName = "Sudoku SolverTests"
                ReferencedContainer = "container:Sudoku Solver.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6345810D1C8A17B5004BF9FA"
+               BuildableName = "MtToolsTests.xctest"
+               BlueprintName = "MtToolsTests"
+               ReferencedContainer = "container:../Learn/MtTools/MtTools.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

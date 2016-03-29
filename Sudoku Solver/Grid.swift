@@ -17,22 +17,9 @@ func **(radix: Int, power: Double) -> Int {
 
 typealias Position = (row:Int, col:Int)
 
-struct Possibility {
-    init(position: Position, values: Set<Int>) {
-        self.position = position
-        self.values = values;
-    }
-
-    var position: Position
-    var values: Set<Int>
-}
-
 class Grid {
-    required init(grid: Grid, autoFill: Bool = true) {
+    required init(grid: Grid) {
         self.grid = Array(grid.grid)
-//        if (autoFill) {
-//            self.makeSinglePlacements()
-//        }
     }
 
     required init(size: Int) {
@@ -43,14 +30,11 @@ class Grid {
         self.init(size: 3)
     }
 
-    convenience init(representation: String, autoFill: Bool = true) {
+    convenience init(representation: String) {
         let trimmed = representation.stringByReplacingOccurrencesOfString("\\s", withString: "", options: NSStringCompareOptions.RegularExpressionSearch)
         let size = trimmed.utf8.count ** 0.25   // 4th root to get Z x Z where Z = size
         self.init(size: size)
         self.fromString(representation)
-//        if (autoFill) {
-//            self.makeSinglePlacements()
-//        }
     }
 
     // properties
@@ -77,7 +61,7 @@ class Grid {
 
     // class methods
 
-    static func solve(grid: Grid) -> Grid? {
+    static func solve(grid: Grid, callback: ((Grid) -> Void)? = nil) -> Grid? {
         grid.makeSinglePlacements()
 
         if (grid.isSolved) {
@@ -89,12 +73,13 @@ class Grid {
         }
 
         // try just the first position, and recurse down for next (their first) position
-        var openPosition = grid.getOpenPositions().first!
-        var possibilities = grid.getPossiblePlacements(openPosition)
+        let openPosition = grid.getOpenPositions().first!
+        let possibilities = grid.getPossiblePlacements(openPosition)
         for possibility in possibilities {
-            var c = Grid(grid: grid)    // copy so we dont fuck up original during recursion (swift arrays are fun!)
-            try! c.place(possibility, position: openPosition)
-            if let solution = Grid.solve(c) {
+            let clone = Grid(grid: grid)    // copy so we dont fuck up original during recursion (swift arrays are fun!)
+            try! clone.place(possibility, position: openPosition)
+            callback?(clone)
+            if let solution = Grid.solve(clone, callback: callback) {
                 return solution
             }
         }
@@ -109,6 +94,10 @@ class Grid {
 
     func valueAt(position: Position) -> Int {
         return self.grid[position.row][position.col]
+    }
+
+    subscript(position: Position) -> Int {
+        return self.valueAt(position)
     }
 
     func place(value: Int, position: Position) throws {
@@ -209,7 +198,7 @@ class Grid {
             }
             if ((i + 1) % segmentSize == 0) {
                 ret += "\n"
-                for t in 0 ..< self.size + segmentSize {
+                for _ in 0 ..< self.size + segmentSize {
                     ret += "-"
                 }
             }
@@ -220,8 +209,10 @@ class Grid {
     }
 
     func fromString(representation: String) -> Void {
+        // convert "spacers" to 0
+        var trimmed = representation.stringByReplacingOccurrencesOfString("[ ,:;-=]", withString: "0", options: NSStringCompareOptions.RegularExpressionSearch)
         // remove all non-digits from input
-        let trimmed = representation.stringByReplacingOccurrencesOfString("\\D", withString: "", options: NSStringCompareOptions.RegularExpressionSearch)
+        trimmed = representation.stringByReplacingOccurrencesOfString("\\D", withString: "", options: NSStringCompareOptions.RegularExpressionSearch)
 
         var row: Int = 0, col: Int = 0
         for i in trimmed.startIndex ..< trimmed.endIndex {
@@ -230,7 +221,7 @@ class Grid {
             if (v == 0) {
                 self.remove((row, col))
             } else {
-                try! self.place(v, position: (row, col))
+                self.tryPlace(v, position: (row, col))
             }
 
             // populate each row of my 2d array
@@ -256,23 +247,6 @@ class Grid {
                     try! self.place(possibilities.first!, position: open[i])
                 }
             }
-
-            // NOTE: Dunno if the following is helpful at all.
-//            open = self.getOpenPositions()
-//
-//            // solve where a placement only has one possible position
-//            for p in 0..<self.size {
-//                var positions: [Position] = []
-//                for i in 0..<open.count {
-//                    if (self.canPlace(p, position: open[i])) {
-//                        positions.append(open[i])
-//                    }
-//                }
-//                if (positions.count == 1) {
-//                    try! self.place(p, position: positions.first!)
-//                }
-//
-//            }
 
             open = self.getOpenPositions()
         }

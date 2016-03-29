@@ -16,23 +16,13 @@
 		637176831C7CE34A009504DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 637176821C7CE34A009504DE /* Assets.xcassets */; };
 		637176861C7CE34A009504DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 637176841C7CE34A009504DE /* LaunchScreen.storyboard */; };
 		637176911C7CE34B009504DE /* Sudoku_SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637176901C7CE34B009504DE /* Sudoku_SolverTests.swift */; };
+		6380DDC71CA6F4DD00EB35AD /* MtTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6380DDC21CA6F4AB00EB35AD /* MtTools.framework */; };
+		6380DDFB1CAA847200EB35AD /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380DDFA1CAA847200EB35AD /* GridView.swift */; };
+		6380DDFE1CAA93D700EB35AD /* MtTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6380DDC21CA6F4AB00EB35AD /* MtTools.framework */; };
+		6380DDFF1CAA93D700EB35AD /* MtTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6380DDC21CA6F4AB00EB35AD /* MtTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6318E1191C9C889E00089089 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6318E1141C9C889B00089089 /* MtTools.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 634581041C8A17B5004BF9FA;
-			remoteInfo = MtTools;
-		};
-		6318E11B1C9C889E00089089 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6318E1141C9C889B00089089 /* MtTools.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6345810E1C8A17B5004BF9FA;
-			remoteInfo = MtToolsTests;
-		};
 		6371768D1C7CE34B009504DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6371766D1C7CE34A009504DE /* Project object */;
@@ -40,12 +30,53 @@
 			remoteGlobalIDString = 637176741C7CE34A009504DE;
 			remoteInfo = "Sudoku Solver";
 		};
+		6380DDC11CA6F4AB00EB35AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 634581041C8A17B5004BF9FA;
+			remoteInfo = MtTools;
+		};
+		6380DDC31CA6F4AB00EB35AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6345810E1C8A17B5004BF9FA;
+			remoteInfo = MtToolsTests;
+		};
+		6380DDC51CA6F4D600EB35AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 634581031C8A17B5004BF9FA;
+			remoteInfo = MtTools;
+		};
+		6380DE001CAA93D700EB35AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 634581031C8A17B5004BF9FA;
+			remoteInfo = MtTools;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6380DE021CAA93D800EB35AD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6380DDFF1CAA93D700EB35AD /* MtTools.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5AF0E45E5CC8220C514721D1 /* Piece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		5AF0EC6C6F6A1846E46353CA /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
-		6318E1141C9C889B00089089 /* MtTools.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MtTools.xcodeproj; path = ../Learn/MtTools/MtTools.xcodeproj; sourceTree = "<group>"; };
 		637176751C7CE34A009504DE /* Sudoku Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sudoku Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		637176781C7CE34A009504DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6371767A1C7CE34A009504DE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +88,8 @@
 		6371768C1C7CE34B009504DE /* Sudoku SolverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sudoku SolverTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		637176901C7CE34B009504DE /* Sudoku_SolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sudoku_SolverTests.swift; sourceTree = "<group>"; };
 		637176921C7CE34B009504DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MtTools.xcodeproj; path = ../Learn/MtTools/MtTools.xcodeproj; sourceTree = "<group>"; };
+		6380DDFA1CAA847200EB35AD /* GridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +97,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6380DDC71CA6F4DD00EB35AD /* MtTools.framework in Frameworks */,
+				6380DDFE1CAA93D700EB35AD /* MtTools.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,27 +112,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6318E1151C9C889B00089089 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6318E11A1C9C889E00089089 /* MtTools.framework */,
-				6318E11C1C9C889E00089089 /* MtToolsTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		6318E11D1C9C88B600089089 /* External Projects */ = {
-			isa = PBXGroup;
-			children = (
-				6318E1141C9C889B00089089 /* MtTools.xcodeproj */,
-			);
-			name = "External Projects";
-			sourceTree = "<group>";
-		};
 		6371766C1C7CE34A009504DE = {
 			isa = PBXGroup;
 			children = (
-				6318E11D1C9C88B600089089 /* External Projects */,
+				6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */,
 				637176771C7CE34A009504DE /* Sudoku Solver */,
 				6371768F1C7CE34B009504DE /* Sudoku SolverTests */,
 				637176761C7CE34A009504DE /* Products */,
@@ -116,6 +134,7 @@
 		637176771C7CE34A009504DE /* Sudoku Solver */ = {
 			isa = PBXGroup;
 			children = (
+				6380DDFA1CAA847200EB35AD /* GridView.swift */,
 				637176781C7CE34A009504DE /* AppDelegate.swift */,
 				6371767A1C7CE34A009504DE /* ViewController.swift */,
 				6371767C1C7CE34A009504DE /* Main.storyboard */,
@@ -138,6 +157,15 @@
 			path = "Sudoku SolverTests";
 			sourceTree = "<group>";
 		};
+		6380DDBD1CA6F4AA00EB35AD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6380DDC21CA6F4AB00EB35AD /* MtTools.framework */,
+				6380DDC41CA6F4AB00EB35AD /* MtToolsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,10 +176,13 @@
 				637176711C7CE34A009504DE /* Sources */,
 				637176721C7CE34A009504DE /* Frameworks */,
 				637176731C7CE34A009504DE /* Resources */,
+				6380DE021CAA93D800EB35AD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6380DDC61CA6F4D600EB35AD /* PBXTargetDependency */,
+				6380DE011CAA93D700EB35AD /* PBXTargetDependency */,
 			);
 			name = "Sudoku Solver";
 			productName = "Sudoku Solver";
@@ -188,6 +219,7 @@
 				TargetAttributes = {
 					637176741C7CE34A009504DE = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 4QKQ7UY23Q;
 					};
 					6371768B1C7CE34B009504DE = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -208,8 +240,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 6318E1151C9C889B00089089 /* Products */;
-					ProjectRef = 6318E1141C9C889B00089089 /* MtTools.xcodeproj */;
+					ProductGroup = 6380DDBD1CA6F4AA00EB35AD /* Products */;
+					ProjectRef = 6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -221,18 +253,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		6318E11A1C9C889E00089089 /* MtTools.framework */ = {
+		6380DDC21CA6F4AB00EB35AD /* MtTools.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = MtTools.framework;
-			remoteRef = 6318E1191C9C889E00089089 /* PBXContainerItemProxy */;
+			remoteRef = 6380DDC11CA6F4AB00EB35AD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6318E11C1C9C889E00089089 /* MtToolsTests.xctest */ = {
+		6380DDC41CA6F4AB00EB35AD /* MtToolsTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = MtToolsTests.xctest;
-			remoteRef = 6318E11B1C9C889E00089089 /* PBXContainerItemProxy */;
+			remoteRef = 6380DDC31CA6F4AB00EB35AD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -266,6 +298,7 @@
 				6371767B1C7CE34A009504DE /* ViewController.swift in Sources */,
 				637176791C7CE34A009504DE /* AppDelegate.swift in Sources */,
 				5AF0EAC8126F70D03598767A /* Grid.swift in Sources */,
+				6380DDFB1CAA847200EB35AD /* GridView.swift in Sources */,
 				5AF0E45535CFD7047C6C803C /* Piece.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +318,16 @@
 			isa = PBXTargetDependency;
 			target = 637176741C7CE34A009504DE /* Sudoku Solver */;
 			targetProxy = 6371768D1C7CE34B009504DE /* PBXContainerItemProxy */;
+		};
+		6380DDC61CA6F4D600EB35AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MtTools;
+			targetProxy = 6380DDC51CA6F4D600EB35AD /* PBXContainerItemProxy */;
+		};
+		6380DE011CAA93D700EB35AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MtTools;
+			targetProxy = 6380DE001CAA93D700EB35AD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -393,6 +436,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Sudoku Solver/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "MountainousCodeLLC.Sudoku-Solver";
@@ -404,6 +449,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Sudoku Solver/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "MountainousCodeLLC.Sudoku-Solver";

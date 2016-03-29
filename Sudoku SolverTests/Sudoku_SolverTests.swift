@@ -117,9 +117,11 @@ class Sudoku_SolverTests: XCTestCase {
 
     func testAnalysis() {
         // auto-populate from my string and make sure its consistent
-        var grid = Grid(representation: self.evilPuzzle)
-        XCTAssertNotNil(Grid.solve(grid))
-        var filled = grid.toString()
+        self.measureBlock {
+            XCTAssertNotNil(Grid.solve(Grid(representation: self.evilPuzzle)))
+            XCTAssertNotNil(Grid.solve(Grid(representation: self.hardPuzzle)))
+            XCTAssertNotNil(Grid.solve(Grid(representation: self.easyPuzzle)))
+        }
     }
 
 
@@ -155,26 +157,4 @@ class Sudoku_SolverTests: XCTestCase {
             "070608045" +
             "000079380" +
             "000203006"
-
-    private let easyPuzzle2 =
-    "004500701" +
-            "007092005" +
-            "020178000" +
-            "008050009" +
-            "940000068" +
-            "700080200" +
-            "000847010" +
-            "600320900" +
-            "403001800"
-
-    private let easyPuzzle3 =
-    "009186007" +
-            "080500009" +
-            "050000300" +
-            "900370012" +
-            "723000895" +
-            "510029004" +
-            "001000020" +
-            "400003070" +
-            "300718500"
 }
