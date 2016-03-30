@@ -4,20 +4,37 @@
 //
 
 import Foundation
+import GameplayKit
+import MtTools
 
-enum MCError: ErrorType {
-    case InvalidArgument
+
+//typealias Position = (row:Int, col:Int)
+
+struct Position: Equatable, Hashable {
+    init() {
+
+    }
+
+    init(_ row: Int, _ col: Int) {
+        self.row = row
+        self.col = col
+    }
+
+    var hashValue: Int {
+        return self.row.hashValue * 13 + self.col.hashValue
+    }
+
+    var row = 0
+    var col = 0
 }
 
-infix operator ** { associativity left precedence 160 }
-
-func **(radix: Int, power: Double) -> Int {
-    return Int(pow(Double(radix), power))
+func ==(rhs: Position, lhs: Position) -> Bool {
+    return rhs.row == lhs.row && rhs.col == lhs.col
 }
 
-typealias Position = (row:Int, col:Int)
 
-class Grid {
+class Grid: CustomStringConvertible {
+
     required init(grid: Grid) {
         self.grid = Array(grid.grid)
     }
@@ -31,8 +48,8 @@ class Grid {
     }
 
     convenience init(representation: String) {
-        let trimmed = representation.stringByReplacingOccurrencesOfString("\\s", withString: "", options: NSStringCompareOptions.RegularExpressionSearch)
-        let size = trimmed.utf8.count ** 0.25   // 4th root to get Z x Z where Z = size
+        let trimmed = Grid.trimString(representation)
+        let size = trimmed.characters.count ** 0.25   // 4th root to get Z x Z where Z = size
         self.init(size: size)
         self.fromString(representation)
     }
@@ -49,7 +66,7 @@ class Grid {
         return (self.getOpenPositions().count == 0)
     }
 
-    var isConsistent: Bool {
+    var isUnsolvable: Bool {
         let openPositions = self.getOpenPositions()
         for p in openPositions {
             if (self.getPossiblePlacements(p).count == 0) {
@@ -57,6 +74,30 @@ class Grid {
             }
         }
         return true;
+    }
+
+    var description: String {
+        let ret: NSMutableString = ""
+
+        let segmentSize = self.size ** 0.5
+
+        for i in 0 ..< self.size {
+            for j in 0 ..< self.size {
+                ret.appendString(String(grid[i][j]))
+                if ((j + 1) % segmentSize == 0) {
+                    ret.appendString("|")
+                }
+            }
+            if ((i + 1) % segmentSize == 0) {
+                ret.appendString("\n")
+                for _ in 0 ..< self.size + segmentSize {
+                    ret.appendString("-")
+                }
+            }
+            ret.appendString("\n")
+        }
+
+        return String(ret)
     }
 
     // class methods
@@ -68,7 +109,7 @@ class Grid {
             return grid
         }
 
-        if (!grid.isConsistent) {
+        if (grid.isUnsolvable) {
             return nil
         }
 
@@ -84,6 +125,29 @@ class Grid {
             }
         }
         return nil
+    }
+
+    static func random() -> Grid {
+        // helper
+        func pick(upperBound: Int) -> Int {
+            return GKRandomSource.sharedRandom().nextIntWithUpperBound(upperBound)
+        }
+
+        let grid = Grid()
+
+        var openPositions = grid.getOpenPositions()
+        while (openPositions.count > 0) {
+            let openPosition = openPositions.first!
+            let possibilities = grid.getPossiblePlacements(openPosition)
+            grid.tryPlace(possibilities[possibilities.startIndex.advancedBy(pick(possibilities.count))], position: openPosition)
+            grid.makeSinglePlacements()
+            if (grid.isUnsolvable) {
+                // oops. start over (not very performant, but who cares, it's instant)
+                grid.removeAll()
+            }
+            openPositions = grid.getOpenPositions()
+        }
+        return grid
     }
 
     // methods
@@ -176,7 +240,7 @@ class Grid {
         for r in 0 ..< self.size {
             for c in 0 ..< self.size {
                 if (self.grid[r][c] == 0) {
-                    positions.append((r, c))
+                    positions.append(Position(r, c))
                 }
             }
         }
@@ -184,47 +248,19 @@ class Grid {
         return positions;
     }
 
-    func toString() -> String {
-        var ret = ""
-
-        let segmentSize = self.size ** 0.5
-
-        for i in 0 ..< self.size {
-            for j in 0 ..< self.size {
-                ret += String(grid[i][j])
-                if ((j + 1) % segmentSize == 0) {
-                    ret += "|"
-                }
-            }
-            if ((i + 1) % segmentSize == 0) {
-                ret += "\n"
-                for _ in 0 ..< self.size + segmentSize {
-                    ret += "-"
-                }
-            }
-            ret += "\n"
-        }
-
-        return ret
-    }
-
     func fromString(representation: String) -> Void {
-        // convert "spacers" to 0
-        var trimmed = representation.stringByReplacingOccurrencesOfString("[ ,:;-=]", withString: "0", options: NSStringCompareOptions.RegularExpressionSearch)
-        // remove all non-digits from input
-        trimmed = representation.stringByReplacingOccurrencesOfString("\\D", withString: "", options: NSStringCompareOptions.RegularExpressionSearch)
-
+        let trimmed = Grid.trimString(representation)
         var row: Int = 0, col: Int = 0
         for i in trimmed.startIndex ..< trimmed.endIndex {
             let v = Int(String(trimmed[i]))!
 
             if (v == 0) {
-                self.remove((row, col))
+                self.remove(Position(row, col))
             } else {
-                self.tryPlace(v, position: (row, col))
+                try! self.place(v, position: Position(row, col))
             }
 
-            // populate each row of my 2d array
+            // populate each row of my 2D array
             col += 1
             if (col >= self.size) {
                 row += 1
@@ -233,27 +269,33 @@ class Grid {
         }
     }
 
+    // privates
+
+    private static func trimString(representation: String) -> String {
+        // convert "spacers" to 0
+        let trimmed = representation.stringByReplacingOccurrencesOfString("[ -_]", withString: "0", options: NSStringCompareOptions.RegularExpressionSearch)
+        // remove all non-digits from input
+        return trimmed.stringByReplacingOccurrencesOfString("\\D", withString: "", options: NSStringCompareOptions.RegularExpressionSearch)
+    }
+
     private func makeSinglePlacements() -> Void {
         var openCount = self.size * self.size
-        var open = self.getOpenPositions()
-        while (self.isConsistent && open.count > 0 && open.count < openCount) {
-            openCount = open.count
+        var openPositions = self.getOpenPositions()
+        while (!self.isUnsolvable && openPositions.count > 0 && openPositions.count < openCount) {
+            openCount = openPositions.count
 
             // solve where only one possibility exists at a position
             for i in 0 ..< openCount {
-                let possibilities = self.getPossiblePlacements(open[i])
+                let possibilities = self.getPossiblePlacements(openPositions[i])
                 // only one possible value? Then solve for it
                 if (possibilities.count == 1) {
-                    try! self.place(possibilities.first!, position: open[i])
+                    try! self.place(possibilities.first!, position: openPositions[i])
                 }
             }
 
-            open = self.getOpenPositions()
+            openPositions = self.getOpenPositions()
         }
-
     }
-
-    // privates
 
     private var grid: [[Int]];
 }

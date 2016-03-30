@@ -18,7 +18,6 @@
 		637176911C7CE34B009504DE /* Sudoku_SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637176901C7CE34B009504DE /* Sudoku_SolverTests.swift */; };
 		6380DDC71CA6F4DD00EB35AD /* MtTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6380DDC21CA6F4AB00EB35AD /* MtTools.framework */; };
 		6380DDFB1CAA847200EB35AD /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380DDFA1CAA847200EB35AD /* GridView.swift */; };
-		6380DDFE1CAA93D700EB35AD /* MtTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6380DDC21CA6F4AB00EB35AD /* MtTools.framework */; };
 		6380DDFF1CAA93D700EB35AD /* MtTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6380DDC21CA6F4AB00EB35AD /* MtTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -98,7 +97,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6380DDC71CA6F4DD00EB35AD /* MtTools.framework in Frameworks */,
-				6380DDFE1CAA93D700EB35AD /* MtTools.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,15 +132,15 @@
 		637176771C7CE34A009504DE /* Sudoku Solver */ = {
 			isa = PBXGroup;
 			children = (
-				6380DDFA1CAA847200EB35AD /* GridView.swift */,
 				637176781C7CE34A009504DE /* AppDelegate.swift */,
+				5AF0EC6C6F6A1846E46353CA /* Grid.swift */,
+				6380DDFA1CAA847200EB35AD /* GridView.swift */,
 				6371767A1C7CE34A009504DE /* ViewController.swift */,
 				6371767C1C7CE34A009504DE /* Main.storyboard */,
 				637176821C7CE34A009504DE /* Assets.xcassets */,
 				637176841C7CE34A009504DE /* LaunchScreen.storyboard */,
 				637176871C7CE34A009504DE /* Info.plist */,
 				6371767F1C7CE34A009504DE /* Sudoku_Solver.xcdatamodeld */,
-				5AF0EC6C6F6A1846E46353CA /* Grid.swift */,
 				5AF0E45E5CC8220C514721D1 /* Piece.swift */,
 			);
 			path = "Sudoku Solver";
@@ -214,7 +212,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Mountainous Code LLC";
 				TargetAttributes = {
 					637176741C7CE34A009504DE = {

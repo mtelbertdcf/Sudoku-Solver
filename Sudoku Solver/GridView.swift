@@ -22,7 +22,7 @@ class GridView: UIView {
     func setData(grid: Grid) -> Void {
         for r in 0 ..< 9 {
             for c in 0 ..< 9 {
-                let text = String(grid[(r, c)])
+                let text = String(grid[Position(r, c)])
                 let control = self.subviews[r * 9 + c] as! UIButton
                 control.setTitle(text, forState: .Normal)
             }
@@ -58,7 +58,7 @@ class GridView: UIView {
     }
 
     func cellClicked(sender: UIButton) {
-        let position: Position = (sender.tag / 9, sender.tag % 9)
+        let position = Position(sender.tag / 9, sender.tag % 9)
 
         subviews.forEach {
             $0.backgroundColor = UIColor.clearColor()
@@ -69,17 +69,37 @@ class GridView: UIView {
             subviews[i * 9 + position.col].backgroundColor = UIColor.yellowColor()
         }
 
-
         sender.backgroundColor = UIColor.whiteColor()
-
     }
 
-    /*
+    private static let _sectionDividorWidth = CGFloat(4.0)
+
+
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
         // Drawing code
+        let context = UIGraphicsGetCurrentContext()!
+        CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
+        CGContextSetLineWidth(context, GridView._sectionDividorWidth)
+
+        let thirdWidth = self.bounds.width / 3
+        let thirdHeight = self.bounds.height / 3
+
+        CGContextMoveToPoint(context, thirdWidth, 0)
+        CGContextAddLineToPoint(context, thirdWidth, self.bounds.height)
+
+        CGContextMoveToPoint(context, thirdWidth * 2, 0)
+        CGContextAddLineToPoint(context, thirdWidth * 2, self.bounds.height)
+
+        CGContextMoveToPoint(context, 0, thirdHeight)
+        CGContextAddLineToPoint(context, self.bounds.width, thirdHeight)
+
+        CGContextMoveToPoint(context, 0, thirdHeight * 2)
+        CGContextAddLineToPoint(context, self.bounds.width, thirdHeight * 2)
+
+
+        CGContextStrokePath(context)
     }
-    */
 
 }
