@@ -273,7 +273,7 @@ class Grid: CustomStringConvertible {
 
     private static func trimString(representation: String) -> String {
         // convert "spacers" to 0
-        let trimmed = representation.stringByReplacingOccurrencesOfString("[ -_]", withString: "0", options: NSStringCompareOptions.RegularExpressionSearch)
+        let trimmed = representation //.stringByReplacingOccurrencesOfString("[ -_]", withString: "0", options: NSStringCompareOptions.RegularExpressionSearch)
         // remove all non-digits from input
         return trimmed.stringByReplacingOccurrencesOfString("\\D", withString: "", options: NSStringCompareOptions.RegularExpressionSearch)
     }

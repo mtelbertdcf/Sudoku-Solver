@@ -40,36 +40,36 @@ class Sudoku_SolverTests: XCTestCase {
     func testBasicGrid() {
         let grid = Grid();
         XCTAssertEqual(grid.size, 9)
-        XCTAssertEqual(grid.valueAt((0, 0)), 0)
-        try! grid.place(1, position: (0, 0))
-        XCTAssertEqual(grid.valueAt((0, 0)), 1)
+        XCTAssertEqual(grid.valueAt(Position(0, 0)), 0)
+        try! grid.place(1, position: Position(0, 0))
+        XCTAssertEqual(grid.valueAt(Position(0, 0)), 1)
         do {
-            try grid.place(1, position: (0, 0)); XCTFail("Did not throw"); } catch {
+            try grid.place(1, position: Position(0, 0)); XCTFail("Did not throw"); } catch {
         }
 
         grid.removeAll()
-        XCTAssertEqual(grid.valueAt((0, 0)), 0)
+        XCTAssertEqual(grid.valueAt(Position(0, 0)), 0)
 
-        grid.tryPlace(1, position: (0, 0))
-        XCTAssertEqual(grid.valueAt((0, 0)), 1)
-        grid.tryPlace(2, position: (0, 0))
-        XCTAssertEqual(grid.valueAt((0, 0)), 1)
+        grid.tryPlace(1, position: Position(0, 0))
+        XCTAssertEqual(grid.valueAt(Position(0, 0)), 1)
+        grid.tryPlace(2, position: Position(0, 0))
+        XCTAssertEqual(grid.valueAt(Position(0, 0)), 1)
     }
 
     func testPlacements() {
         let grid = Grid()
 
-        try! grid.place(1, position: (0, 0))
-        XCTAssertFalse(grid.tryPlace(1, position: (0, 0)))
+        try! grid.place(1, position: Position(0, 0))
+        XCTAssertFalse(grid.tryPlace(1, position: Position(0, 0)))
 
         // test same row, same column, same grouping
-        XCTAssertFalse(grid.canPlace(1, position: (1, 0)))
-        XCTAssertFalse(grid.canPlace(1, position: (0, 1)))
-        XCTAssertFalse(grid.canPlace(1, position: (1, 1)))
+        XCTAssertFalse(grid.canPlace(1, position: Position(1, 0)))
+        XCTAssertFalse(grid.canPlace(1, position: Position(0, 1)))
+        XCTAssertFalse(grid.canPlace(1, position: Position(1, 1)))
 
-        grid.remove((0, 0))
-        XCTAssertEqual(grid.valueAt((0, 0)), 0)
-        XCTAssertTrue(grid.canPlace(1, position: (0, 0)))
+        grid.remove(Position(0, 0))
+        XCTAssertEqual(grid.valueAt(Position(0, 0)), 0)
+        XCTAssertTrue(grid.canPlace(1, position: Position(0, 0)))
     }
 
     func testPossibilities() {
@@ -77,16 +77,16 @@ class Sudoku_SolverTests: XCTestCase {
 
         // set a couple pieces and check for valid possibilities
         do {
-            try grid.place(1, position: (0, 0))
-            try grid.place(2, position: (1, 0))
-            try grid.place(3, position: (0, 1))
+            try grid.place(1, position: Position(0, 0))
+            try grid.place(2, position: Position(1, 0))
+            try grid.place(3, position: Position(0, 1))
         } catch {
         }
 
-        var possibilities = grid.getPossiblePlacements((0, 0))
+        var possibilities = grid.getPossiblePlacements(Position(0, 0))
         XCTAssertTrue(possibilities.isEmpty)
 
-        possibilities = grid.getPossiblePlacements((5, 5))
+        possibilities = grid.getPossiblePlacements(Position(5, 5))
         XCTAssertFalse(possibilities.isEmpty)
         XCTAssertEqual(possibilities.count, 9)
     }
@@ -94,18 +94,18 @@ class Sudoku_SolverTests: XCTestCase {
     func testGridEquality() {
         let grid1 = Grid()
 
-        try! grid1.place(1, position: (0, 0))
+        try! grid1.place(1, position: Position(0, 0))
         let grid2 = Grid(grid: grid1)
 
-        XCTAssertEqual(grid1.valueAt((0, 0)), grid2.valueAt((0, 0)))
+        XCTAssertEqual(grid1.valueAt(Position(0, 0)), grid2.valueAt(Position(0, 0)))
         grid2.removeAll();
-        XCTAssertNotEqual(grid1.valueAt((0, 0)), grid2.valueAt((0, 0)))
+        XCTAssertNotEqual(grid1.valueAt(Position(0, 0)), grid2.valueAt(Position(0, 0)))
 
-        let s = grid1.toString()
+        let s = grid1.description
 
         let grid3 = Grid(representation: s)
         XCTAssertNotNil(grid3)
-        XCTAssertEqual(grid3.valueAt((0, 0)), grid1.valueAt((0, 0)))
+        XCTAssertEqual(grid3.valueAt(Position(0, 0)), grid1.valueAt(Position(0, 0)))
 
         grid3.removeAll()
         XCTAssertEqual(grid3.getOpenPositions().count, 81)
@@ -118,9 +118,27 @@ class Sudoku_SolverTests: XCTestCase {
     func testAnalysis() {
         // auto-populate from my string and make sure its consistent
         self.measureBlock {
-            XCTAssertNotNil(Grid.solve(Grid(representation: self.evilPuzzle)))
-            XCTAssertNotNil(Grid.solve(Grid(representation: self.hardPuzzle)))
-            XCTAssertNotNil(Grid.solve(Grid(representation: self.easyPuzzle)))
+            self.checkPuzzle(self.easyPuzzle)
+            self.checkPuzzle(self.hardPuzzle)
+            self.checkPuzzle(self.evilPuzzle)
+        }
+    }
+
+    private func checkPuzzle(s: String) {
+        var g = Grid(representation: s)
+        XCTAssertNotEqual(g.getOpenPositions().count, 81)
+        var solution = Grid.solve(g)
+
+        XCTAssertNotNil(solution)
+        for r in 0 ..< 9 {
+            for c in 0 ..< 9 {
+                var position = Position(r, c)
+                if (g[position] != 0) {
+                    XCTAssertEqual(g[position], solution![position])
+                } else {
+                    XCTAssertNotEqual(solution![position], 0)
+                }
+            }
         }
     }
 
@@ -137,15 +155,15 @@ class Sudoku_SolverTests: XCTestCase {
             "000086029"
 
     private let evilPuzzle =
-    "000080000" +
-            "060000308" +
-            "040502700" +
-            "520908100" +
             "000000000" +
-            "009306057" +
-            "001204030" +
-            "408000070" +
-            "000060000"
+                    "590102370" +
+                    "000036010" +
+                    "305000460" +
+                    "000000000" +
+                    "064000203" +
+                    "030790000" +
+                    "072804039" +
+                    "000000000"
 
     private let easyPuzzle =
     "100304000" +

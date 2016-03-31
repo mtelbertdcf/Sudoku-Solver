@@ -39,7 +39,6 @@ class GridView: UIView {
             for c in 0 ..< 9 {
                 let childLocation = CGPoint(x: CGFloat(c) * childWidth, y: CGFloat(r) * childHeight)
                 let child = UIButton(type: UIButtonType.RoundedRect)
-                self.addSubview(child)
                 child.frame = CGRect(origin: childLocation, size: childSize)
                 child.layer.borderWidth = 1.0
                 child.layer.borderColor = UIColor.blackColor().CGColor
@@ -51,7 +50,7 @@ class GridView: UIView {
                     titleLabel.font = titleLabel.font.fontWithSize(childHeight * 0.75)
                     titleLabel.hidden = false
                 }
-
+                self.addSubview(child)
             }
         }
 
@@ -64,17 +63,21 @@ class GridView: UIView {
     }
 
     func cellClicked(sender: UIButton) {
+        // find the button clicked on using tag assigned in createCells
         let position = Position(sender.tag / 9, sender.tag % 9)
 
+        // clear everyone out
         subviews.forEach {
             $0.backgroundColor = UIColor.clearColor()
         }
 
+        // "draw" row and column of cell
         for i in 0 ..< 9 {
             subviews[position.row * 9 + i].backgroundColor = UIColor.yellowColor()
             subviews[i * 9 + position.col].backgroundColor = UIColor.yellowColor()
         }
 
+        // "draw" cell
         sender.backgroundColor = UIColor.whiteColor()
     }
 
