@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MtTools
 
 class GridView: UIView {
     required init?(coder: NSCoder) {
@@ -54,6 +55,11 @@ class GridView: UIView {
             }
         }
 
+        // add my grid overlay view
+        let gridOverlay = Panel(frame: self.bounds, drawing: self.drawGrid)
+        self.addSubview(gridOverlay)
+
+        // empty grid
         self.setData(Grid())
     }
 
@@ -74,32 +80,25 @@ class GridView: UIView {
 
     private static let _sectionDividorWidth = CGFloat(4.0)
 
+    // to draw my subview grid
+    func drawGrid(rect: CGRect) {
+        let gc = GraphicsContext()
 
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-        let context = UIGraphicsGetCurrentContext()!
-        CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
-        CGContextSetLineWidth(context, GridView._sectionDividorWidth)
+        gc.lineColor = UIColor.blackColor()
+        gc.width = GridView._sectionDividorWidth
 
-        let thirdWidth = self.bounds.width / 3
-        let thirdHeight = self.bounds.height / 3
+        let thirdWidth = rect.width / 3
+        let thirdHeight = rect.height / 3
 
-        CGContextMoveToPoint(context, thirdWidth, 0)
-        CGContextAddLineToPoint(context, thirdWidth, self.bounds.height)
-
-        CGContextMoveToPoint(context, thirdWidth * 2, 0)
-        CGContextAddLineToPoint(context, thirdWidth * 2, self.bounds.height)
-
-        CGContextMoveToPoint(context, 0, thirdHeight)
-        CGContextAddLineToPoint(context, self.bounds.width, thirdHeight)
-
-        CGContextMoveToPoint(context, 0, thirdHeight * 2)
-        CGContextAddLineToPoint(context, self.bounds.width, thirdHeight * 2)
-
-
-        CGContextStrokePath(context)
+        gc.moveTo(thirdWidth, 0)
+        .lineTo(thirdWidth, rect.height)
+        .moveTo(thirdWidth * 2, 0)
+        .lineTo(thirdWidth * 2, rect.height)
+        .moveTo(0, thirdHeight)
+        .lineTo(rect.width, thirdHeight)
+        .moveTo(0, thirdHeight * 2)
+        .lineTo(rect.width, thirdHeight * 2)
+        .stroke()
     }
-
 }
+

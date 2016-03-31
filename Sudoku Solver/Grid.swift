@@ -70,10 +70,10 @@ class Grid: CustomStringConvertible {
         let openPositions = self.getOpenPositions()
         for p in openPositions {
             if (self.getPossiblePlacements(p).count == 0) {
-                return false
+                return true
             }
         }
-        return true;
+        return false
     }
 
     var description: String {
