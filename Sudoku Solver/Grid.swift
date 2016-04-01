@@ -34,6 +34,7 @@ func ==(rhs: Position, lhs: Position) -> Bool {
 
 
 class Grid: CustomStringConvertible {
+    typealias Callback = (Grid) -> Void
 
     required init(grid: Grid) {
         self.grid = Array(grid.grid)
@@ -100,6 +101,12 @@ class Grid: CustomStringConvertible {
         return String(ret)
     }
 
+    var rawString: String {
+        get {
+            return description.stringByReplacingOccurrencesOfString("\\D", withString: "", options: .RegularExpressionSearch)
+        }
+    }
+
     // class methods
 
     static func solve(grid: Grid, callback: ((Grid) -> Void)? = nil) -> Grid? {
@@ -139,7 +146,7 @@ class Grid: CustomStringConvertible {
         while (openPositions.count > 0) {
             let openPosition = openPositions.first!
             let possibilities = grid.getPossiblePlacements(openPosition)
-            grid.tryPlace(possibilities[possibilities.startIndex.advancedBy(pick(possibilities.count))], position: openPosition)
+            grid.tryPlace(possibilities[pick(possibilities.count)], position: openPosition)
             grid.makeSinglePlacements()
             if (grid.isUnsolvable) {
                 // oops. start over (not very performant, but who cares, it's instant)
@@ -222,12 +229,12 @@ class Grid: CustomStringConvertible {
         self.grid = Array(count: self.size, repeatedValue: Array(count: self.size, repeatedValue: 0))
     }
 
-    func getPossiblePlacements(position: Position) -> Set<Int> {
-        var ret = Set<Int>()
+    func getPossiblePlacements(position: Position) -> [Int] {
+        var ret: [Int] = []
 
         for i in 1 ... self.size {
             if (self.canPlace(i, position: position)) {
-                ret.insert(i)
+                ret.append(i)
             }
         }
 
@@ -273,7 +280,8 @@ class Grid: CustomStringConvertible {
 
     private static func trimString(representation: String) -> String {
         // convert "spacers" to 0
-        let trimmed = representation //.stringByReplacingOccurrencesOfString("[ -_]", withString: "0", options: NSStringCompareOptions.RegularExpressionSearch)
+        // NOTE: BEWARE the RegEx here. the order of the characters matters!
+        let trimmed = representation.stringByReplacingOccurrencesOfString("[ _-]", withString: "0", options: NSStringCompareOptions.RegularExpressionSearch)
         // remove all non-digits from input
         return trimmed.stringByReplacingOccurrencesOfString("\\D", withString: "", options: NSStringCompareOptions.RegularExpressionSearch)
     }

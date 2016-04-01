@@ -101,7 +101,7 @@ class Sudoku_SolverTests: XCTestCase {
         grid2.removeAll();
         XCTAssertNotEqual(grid1.valueAt(Position(0, 0)), grid2.valueAt(Position(0, 0)))
 
-        let s = grid1.description
+        let s = grid1.rawString
 
         let grid3 = Grid(representation: s)
         XCTAssertNotNil(grid3)
@@ -113,7 +113,6 @@ class Sudoku_SolverTests: XCTestCase {
         grid3.fromString(s)
         XCTAssertLessThan(grid3.getOpenPositions().count, 81)
     }
-
 
     func testAnalysis() {
         // auto-populate from my string and make sure its consistent

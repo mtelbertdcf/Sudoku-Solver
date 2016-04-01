@@ -45,9 +45,14 @@ class GridView: UIView {
                 child.layer.cornerRadius = 4.0
                 child.tag = r * 9 + c
                 child.addTarget(self, action: #selector(GridView.cellClicked(_:)), forControlEvents: .TouchUpInside)
+                child.addGestureRecognizer({
+                    let gr = UILongPressGestureRecognizer(target: self, action: #selector(GridView.cellHeld(_:)))
+                    gr.minimumPressDuration = 2.5
+                    return gr
+                }())
                 if let titleLabel = child.titleLabel {
                     titleLabel.textColor = UIColor.blackColor()
-                    titleLabel.font = titleLabel.font.fontWithSize(childHeight * 0.75)
+                    titleLabel.font = UIFont(name: "American Typewriter", size: childHeight * 0.75)
                     titleLabel.hidden = false
                 }
                 self.addSubview(child)
@@ -61,6 +66,17 @@ class GridView: UIView {
         // empty grid
         self.setData(Grid())
     }
+
+    func cellHeld(sender: UILongPressGestureRecognizer) {
+        // find the button clicked on using tag assigned in createCells
+        let position = Position(sender.view!.tag / 9, sender.view!.tag % 9)
+
+        // todo: do some popup shit here
+
+        var alert = UIAlertController(title: "foo", message: "bar", preferredStyle: .ActionSheet)
+        self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+    }
+
 
     func cellClicked(sender: UIButton) {
         // find the button clicked on using tag assigned in createCells
