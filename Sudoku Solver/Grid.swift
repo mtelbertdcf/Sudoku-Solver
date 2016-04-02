@@ -33,7 +33,7 @@ func ==(rhs: Position, lhs: Position) -> Bool {
 }
 
 
-class Grid: CustomStringConvertible {
+class Grid: CustomStringConvertible, Equatable {
     typealias Callback = (Grid) -> Void
 
     required init(grid: Grid) {
@@ -306,4 +306,23 @@ class Grid: CustomStringConvertible {
     }
 
     private var grid: [[Int]];
+}
+
+func ==(rhs: Grid, lhs: Grid) -> Bool {
+    if (rhs.size != lhs.size) {
+        return false
+    }
+
+    let sideLength = rhs.size ** 2
+
+    for r in 0 ..< sideLength {
+        for c in 0 ..< sideLength {
+            let position = Position(r, c)
+            if (rhs[position] != lhs[position]) {
+                return false
+            }
+        }
+    }
+
+    return true
 }

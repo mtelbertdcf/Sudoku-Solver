@@ -123,6 +123,10 @@ class Sudoku_SolverTests: XCTestCase {
         }
     }
 
+    func testRandom() {
+
+    }
+
     private func checkPuzzle(s: String) {
         var g = Grid(representation: s)
         XCTAssertNotEqual(g.getOpenPositions().count, 81)

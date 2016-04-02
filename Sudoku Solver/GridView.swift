@@ -44,7 +44,9 @@ class GridView: UIView {
             for c in 0 ..< 9 {
                 let childLocation = CGPoint(x: CGFloat(c) * childWidth, y: CGFloat(r) * childHeight)
                 let childFrame = CGRect(origin: childLocation, size: childSize)
-                let child = GridCell(frame: childFrame, initialValue: 0)
+                let child = UIButton(type: .RoundedRect)
+
+                child.frame = childFrame
                 child.layer.borderWidth = 1.0
                 child.layer.borderColor = UIColor.blackColor().CGColor
                 child.layer.cornerRadius = 4.0
@@ -67,6 +69,8 @@ class GridView: UIView {
         // add my grid overlay view
         let gridOverlay = Panel(frame: self.bounds, drawing: self.drawGrid)
         self.addSubview(gridOverlay)
+
+        setData(Grid())
     }
 
     func cellHeld(sender: UILongPressGestureRecognizer) {

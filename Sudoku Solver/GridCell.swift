@@ -8,23 +8,17 @@ import UIKit
 import MtTools
 
 class GridCell: UIButton {
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//    }
+//
+////
+////    init(type: UIButtonType) {
+////        super.init(type: type)
+////    }
 
     enum ShowState {
         case Initial, Current, Solved
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setText()
-    }
-
-    init(frame: CGRect, initialValue: Int) {
-        super.init(frame: frame)
-        self.backgroundColor = UIColor.clearColor()
-
-        self._initialValue = initialValue
-        self._currentValue = initialValue
-        self.setText()
     }
 
     var currentValue: Int {
