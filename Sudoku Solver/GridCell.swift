@@ -13,13 +13,15 @@ class GridCell: UIButton {
         case Initial, Current, Solved
     }
 
-    required override init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setText()
     }
 
     init(frame: CGRect, initialValue: Int) {
         super.init(frame: frame)
+        self.backgroundColor = UIColor.clearColor()
+
         self._initialValue = initialValue
         self._currentValue = initialValue
         self.setText()
@@ -62,17 +64,15 @@ class GridCell: UIButton {
 
     private func setText() {
         switch (self.showState) {
-        case .Initial:
-            break
+            case .Initial:
+                break
 
-        case .Current:
-            break
+            case .Current:
+                break
 
-        case .Solved:
-            break
+            case .Solved:
+                break
 
-        default:
-            break
         }
     }
 

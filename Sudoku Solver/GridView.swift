@@ -30,6 +30,11 @@ class GridView: UIView {
         }
     }
 
+    static let doCellClicked =
+#selector(GridView.cellClicked(_:))
+    static let doCellHeld =
+#selector(GridView.cellHeld(_:))
+
     func createCells() -> Void {
         let childWidth = self.bounds.width / 9
         let childHeight = self.bounds.height / 9
@@ -38,15 +43,15 @@ class GridView: UIView {
         for r in 0 ..< 9 {
             for c in 0 ..< 9 {
                 let childLocation = CGPoint(x: CGFloat(c) * childWidth, y: CGFloat(r) * childHeight)
-                let child = UIButton(type: UIButtonType.RoundedRect)
-                child.frame = CGRect(origin: childLocation, size: childSize)
+                let childFrame = CGRect(origin: childLocation, size: childSize)
+                let child = GridCell(frame: childFrame, initialValue: 0)
                 child.layer.borderWidth = 1.0
                 child.layer.borderColor = UIColor.blackColor().CGColor
                 child.layer.cornerRadius = 4.0
                 child.tag = r * 9 + c
-                child.addTarget(self, action: #selector(GridView.cellClicked(_:)), forControlEvents: .TouchUpInside)
+                child.addTarget(self, action: GridView.doCellClicked, forControlEvents: .TouchUpInside)
                 child.addGestureRecognizer({
-                    let gr = UILongPressGestureRecognizer(target: self, action: #selector(GridView.cellHeld(_:)))
+                    let gr = UILongPressGestureRecognizer(target: self, action: GridView.doCellHeld)
                     gr.minimumPressDuration = 2.5
                     return gr
                 }())
@@ -62,9 +67,6 @@ class GridView: UIView {
         // add my grid overlay view
         let gridOverlay = Panel(frame: self.bounds, drawing: self.drawGrid)
         self.addSubview(gridOverlay)
-
-        // empty grid
-        self.setData(Grid())
     }
 
     func cellHeld(sender: UILongPressGestureRecognizer) {
@@ -73,10 +75,9 @@ class GridView: UIView {
 
         // todo: do some popup shit here
 
-        var alert = UIAlertController(title: "foo", message: "bar", preferredStyle: .ActionSheet)
+        let alert = UIAlertController(title: "foo", message: "bar", preferredStyle: .ActionSheet)
         self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
     }
-
 
     func cellClicked(sender: UIButton) {
         // find the button clicked on using tag assigned in createCells
