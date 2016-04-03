@@ -7,12 +7,22 @@ import Foundation
 import UIKit
 import MtTools
 
+// TODO: Why are all my text labels white? I've tried several ways to set it to no avail
+
 class GridCell: UIButton {
     required init?(coder: NSCoder) {
         self._identifier = Position(0, 0)
         super.init(coder: coder)
     }
 
+    /**
+        Initializes a new GridViwe at the given position and with the given identifier
+
+        - Parameters:
+            - frame: the location of this view
+            - identifier: the identifier (as a position) for this view
+
+    */
     init(frame: CGRect, identifier: Position) {
         self._identifier = identifier
         super.init(frame: frame)
@@ -23,15 +33,16 @@ class GridCell: UIButton {
 
         if let label = self.titleLabel {
             label.textColor = UIColor.blackColor()
-            label.textColor = UIColor.blackColor()
+            print(label.textColor.debugDescription)
             label.font = UIFont(name: "American Typewriter", size: self.bounds.height * 0.75)
             label.hidden = false
         }
     }
 
+
     var identifier: Position {
         get {
-            return _identifier
+            return self._identifier
         }
     }
 
@@ -45,6 +56,8 @@ class GridCell: UIButton {
         }
         set {
             self.setTitle(String(newValue), forState: .Normal)
+//            self.titleLabel?.textColor = UIColor.blackColor()
+//            self.setNeedsDisplay()
         }
     }
 

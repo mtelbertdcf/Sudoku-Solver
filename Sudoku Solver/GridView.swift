@@ -68,30 +68,44 @@ class GridView: UIView {
 
         // "draw" row and column of cell
         for i in 0 ..< 9 {
-            subviews[sender.identifier.row * 9 + i].backgroundColor = UIColor.yellowColor()
-            subviews[i * 9 + sender.identifier.col].backgroundColor = UIColor.yellowColor()
+            subviews[sender.identifier.row * 9 + i].backgroundColor = UIColor(colorLiteralRed: 160.0 / 255.0, green: 120.0 / 255.0, blue: 0.0, alpha: 0.5)
+            subviews[i * 9 + sender.identifier.col].backgroundColor = UIColor(colorLiteralRed: 160.0 / 255.0, green: 120.0 / 255.0, blue: 0.0, alpha: 0.5)
+            // UIColor.yellowColor()
         }
 
         // "draw" cell
-        sender.backgroundColor = UIColor.whiteColor()
+        sender.backgroundColor = UIColor.blackColor()
     }
 
     func cellHeld(sender: UILongPressGestureRecognizer) {
         // find the button clicked on using tag assigned in createCells
-        guard let gridCell = sender.view as? GridCell else {
+        guard let gridCell = sender.view as? GridCell where sender.state == .Began else {
             return
         }
 
-        // todo: do some popup shit here
-
-        let alert = UIAlertController(title: "foo", message: "bar", preferredStyle: .ActionSheet)
-
         let possibilities = self.grid.getPossiblePlacements(gridCell.identifier)
-        for i in 0 ..< possibilities.count {
-            alert.addAction(UIAlertAction(title: String(possibilities[i]), style: .Default, handler: nil))
+        if (possibilities.count > 0) {
+            let alert = UIAlertController(title: "Select Piece", message: "Possible Values", preferredStyle: .ActionSheet)
+            for i in 0 ..< possibilities.count {
+                alert.addAction(UIAlertAction(title: String(possibilities[i]), style: .Default, handler: {
+                    let value = Int($0.title!)!
+                    if (self.grid.tryPlace(value, position: gridCell.identifier)) {
+                        gridCell.displayedValue = value
+                    }
+                }))
+            }
+
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                _ in
+                alert.dismissViewControllerAnimated(true, completion: nil)
+            }))
+
+            self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            self.grid.remove(gridCell.identifier)
+            gridCell.displayedValue = 0
         }
 
-        self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
     }
 
     private static let _sectionDividorWidth = CGFloat(4.0)
