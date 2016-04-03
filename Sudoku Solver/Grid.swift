@@ -52,7 +52,7 @@ class Grid: CustomStringConvertible, Equatable {
         let trimmed = Grid.trimString(representation)
         let size = trimmed.characters.count ** 0.25   // 4th root to get Z x Z where Z = size
         self.init(size: size)
-        self.fromString(representation)
+        self.readValue(representation)
     }
 
     // properties
@@ -255,8 +255,8 @@ class Grid: CustomStringConvertible, Equatable {
         return positions;
     }
 
-    func fromString(representation: String) -> Void {
-        let trimmed = Grid.trimString(representation)
+    func readValue(from: String) -> Void {
+        let trimmed = Grid.trimString(from)
         var row: Int = 0, col: Int = 0
         for i in trimmed.startIndex ..< trimmed.endIndex {
             let v = Int(String(trimmed[i]))!

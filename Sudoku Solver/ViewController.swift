@@ -39,12 +39,15 @@ class ViewController: UIViewController {
         switch (sender.tag) {
         case 0:
             if (representation.characters.count > 0) {
-                if let solution = Grid.solve(Grid(representation: representation)) {
-                    self.gridView.setData(solution)
-                } else {
-                    // todo: alert
-                    self.gridView.setData(Grid())
-                }
+                let newGrid = Grid(representation: representation)
+                self.gridView.setData(newGrid)
+//
+//                if let solution = Grid.solve(Grid(representation: representation)) {
+//                    self.gridView.setData(solution)
+//                } else {
+//                    // todo: alert
+//                    self.gridView.setData(Grid())
+//                }
             } else {
                 self.gridView.setData(Grid())
             }
