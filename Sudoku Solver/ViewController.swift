@@ -12,7 +12,7 @@ import CoreGraphics
 
 class ViewController: UIViewController {
     @IBOutlet weak var textInput: UITextField!
-    @IBOutlet weak var buttonSolve: UIButton!
+    @IBOutlet weak var buttonInput: UIButton!
     @IBOutlet weak var buttonClear: UIButton!
     @IBOutlet weak var buttonRandom: UIButton!
     @IBOutlet weak var gridView: GridView!
@@ -23,9 +23,9 @@ class ViewController: UIViewController {
 
         // initialize looks
 
-        buttonSolve.layer.borderWidth = 1.0
-        buttonSolve.layer.borderColor = UIColor.blueColor().CGColor
-        buttonSolve.layer.cornerRadius = 5.0
+        buttonInput.layer.borderWidth = 1.0
+        buttonInput.layer.borderColor = UIColor.blueColor().CGColor
+        buttonInput.layer.cornerRadius = 5.0
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,13 +41,6 @@ class ViewController: UIViewController {
             if (representation.characters.count > 0) {
                 let newGrid = Grid(representation: representation)
                 self.gridView.setData(newGrid)
-//
-//                if let solution = Grid.solve(Grid(representation: representation)) {
-//                    self.gridView.setData(solution)
-//                } else {
-//                    // todo: alert
-//                    self.gridView.setData(Grid())
-//                }
             } else {
                 self.gridView.setData(Grid())
             }
@@ -65,5 +58,4 @@ class ViewController: UIViewController {
             break;
         }
     }
-
 }

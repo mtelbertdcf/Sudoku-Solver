@@ -17,9 +17,9 @@
 		637176831C7CE34A009504DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 637176821C7CE34A009504DE /* Assets.xcassets */; };
 		637176861C7CE34A009504DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 637176841C7CE34A009504DE /* LaunchScreen.storyboard */; };
 		637176911C7CE34B009504DE /* Sudoku_SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637176901C7CE34B009504DE /* Sudoku_SolverTests.swift */; };
-		6380DDC71CA6F4DD00EB35AD /* MtTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6380DDC21CA6F4AB00EB35AD /* MtTools.framework */; };
 		6380DDFB1CAA847200EB35AD /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380DDFA1CAA847200EB35AD /* GridView.swift */; };
-		6380DDFF1CAA93D700EB35AD /* MtTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6380DDC21CA6F4AB00EB35AD /* MtTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6388D8431CAFF125000AC1BC /* MtTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E23A981CAF2E9F0033C2F9 /* MtTools.framework */; };
+		6388D8441CAFF125000AC1BC /* MtTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 63E23A981CAF2E9F0033C2F9 /* MtTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,33 +30,26 @@
 			remoteGlobalIDString = 637176741C7CE34A009504DE;
 			remoteInfo = "Sudoku Solver";
 		};
-		6380DDC11CA6F4AB00EB35AD /* PBXContainerItemProxy */ = {
+		6388D8451CAFF125000AC1BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */;
+			containerPortal = 63E23A921CAF2E9F0033C2F9 /* MtTools.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 634581031C8A17B5004BF9FA;
+			remoteInfo = MtTools;
+		};
+		63E23A971CAF2E9F0033C2F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63E23A921CAF2E9F0033C2F9 /* MtTools.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 634581041C8A17B5004BF9FA;
 			remoteInfo = MtTools;
 		};
-		6380DDC31CA6F4AB00EB35AD /* PBXContainerItemProxy */ = {
+		63E23A991CAF2E9F0033C2F9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */;
+			containerPortal = 63E23A921CAF2E9F0033C2F9 /* MtTools.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 6345810E1C8A17B5004BF9FA;
 			remoteInfo = MtToolsTests;
-		};
-		6380DDC51CA6F4D600EB35AD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 634581031C8A17B5004BF9FA;
-			remoteInfo = MtTools;
-		};
-		6380DE001CAA93D700EB35AD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 634581031C8A17B5004BF9FA;
-			remoteInfo = MtTools;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -67,7 +60,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6380DDFF1CAA93D700EB35AD /* MtTools.framework in Embed Frameworks */,
+				6388D8441CAFF125000AC1BC /* MtTools.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,8 +82,8 @@
 		6371768C1C7CE34B009504DE /* Sudoku SolverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sudoku SolverTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		637176901C7CE34B009504DE /* Sudoku_SolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sudoku_SolverTests.swift; sourceTree = "<group>"; };
 		637176921C7CE34B009504DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MtTools.xcodeproj; path = ../Learn/MtTools/MtTools.xcodeproj; sourceTree = "<group>"; };
 		6380DDFA1CAA847200EB35AD /* GridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		63E23A921CAF2E9F0033C2F9 /* MtTools.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MtTools.xcodeproj; path = ../MtTools/MtTools.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6380DDC71CA6F4DD00EB35AD /* MtTools.framework in Frameworks */,
+				6388D8431CAFF125000AC1BC /* MtTools.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +108,7 @@
 		6371766C1C7CE34A009504DE = {
 			isa = PBXGroup;
 			children = (
-				6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */,
+				63E23A921CAF2E9F0033C2F9 /* MtTools.xcodeproj */,
 				637176771C7CE34A009504DE /* Sudoku Solver */,
 				6371768F1C7CE34B009504DE /* Sudoku SolverTests */,
 				637176761C7CE34A009504DE /* Products */,
@@ -158,11 +151,11 @@
 			path = "Sudoku SolverTests";
 			sourceTree = "<group>";
 		};
-		6380DDBD1CA6F4AA00EB35AD /* Products */ = {
+		63E23A931CAF2E9F0033C2F9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6380DDC21CA6F4AB00EB35AD /* MtTools.framework */,
-				6380DDC41CA6F4AB00EB35AD /* MtToolsTests.xctest */,
+				63E23A981CAF2E9F0033C2F9 /* MtTools.framework */,
+				63E23A9A1CAF2E9F0033C2F9 /* MtToolsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,8 +175,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				6380DDC61CA6F4D600EB35AD /* PBXTargetDependency */,
-				6380DE011CAA93D700EB35AD /* PBXTargetDependency */,
+				6388D8461CAFF125000AC1BC /* PBXTargetDependency */,
 			);
 			name = "Sudoku Solver";
 			productName = "Sudoku Solver";
@@ -241,8 +233,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 6380DDBD1CA6F4AA00EB35AD /* Products */;
-					ProjectRef = 6380DDBC1CA6F4AA00EB35AD /* MtTools.xcodeproj */;
+					ProductGroup = 63E23A931CAF2E9F0033C2F9 /* Products */;
+					ProjectRef = 63E23A921CAF2E9F0033C2F9 /* MtTools.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -254,18 +246,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		6380DDC21CA6F4AB00EB35AD /* MtTools.framework */ = {
+		63E23A981CAF2E9F0033C2F9 /* MtTools.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = MtTools.framework;
-			remoteRef = 6380DDC11CA6F4AB00EB35AD /* PBXContainerItemProxy */;
+			remoteRef = 63E23A971CAF2E9F0033C2F9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6380DDC41CA6F4AB00EB35AD /* MtToolsTests.xctest */ = {
+		63E23A9A1CAF2E9F0033C2F9 /* MtToolsTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = MtToolsTests.xctest;
-			remoteRef = 6380DDC31CA6F4AB00EB35AD /* PBXContainerItemProxy */;
+			remoteRef = 63E23A991CAF2E9F0033C2F9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -321,15 +313,10 @@
 			target = 637176741C7CE34A009504DE /* Sudoku Solver */;
 			targetProxy = 6371768D1C7CE34B009504DE /* PBXContainerItemProxy */;
 		};
-		6380DDC61CA6F4D600EB35AD /* PBXTargetDependency */ = {
+		6388D8461CAFF125000AC1BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MtTools;
-			targetProxy = 6380DDC51CA6F4D600EB35AD /* PBXContainerItemProxy */;
-		};
-		6380DE011CAA93D700EB35AD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = MtTools;
-			targetProxy = 6380DE001CAA93D700EB35AD /* PBXContainerItemProxy */;
+			targetProxy = 6388D8451CAFF125000AC1BC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

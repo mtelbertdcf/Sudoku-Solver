@@ -28,9 +28,9 @@ class GridView: UIView {
     }
 
     static let doCellClicked =
-#selector(GridView.cellClicked(_:))
-    static let doCellHeld =
-#selector(GridView.cellHeld(_:))
+#selector(GridView.cellTapped(_:))
+    static let doCellDoubleTapped =
+#selector(GridView.cellDoubleTapped(_:))
 
     func createChildren() -> Void {
         let childWidth = self.bounds.width / 9
@@ -44,9 +44,14 @@ class GridView: UIView {
                 let child = GridCell(frame: childFrame, identifier: Position(r, c))
 
                 // "event" handler setup. iOS has at least 13 ways to do events, so let's try a few here
-                child.addTarget(self, action: GridView.doCellClicked, forControlEvents: .TouchUpInside)
+                //child.addTarget(self, action: GridView.doCellClicked, forControlEvents: .TouchUpInside)
                 child.addGestureRecognizer({
-                    let gr = UILongPressGestureRecognizer(target: self, action: GridView.doCellHeld)
+                    let gr = UITapGestureRecognizer(target: self, action: GridView.doCellClicked)
+                    gr.numberOfTapsRequired = 1
+                    return gr
+                }())
+                child.addGestureRecognizer({
+                    let gr = UILongPressGestureRecognizer(target: self, action: GridView.doCellDoubleTapped)
                     gr.minimumPressDuration = 2.0
                     return gr
                 }())
@@ -60,7 +65,11 @@ class GridView: UIView {
         self.addSubview(gridOverlay)
     }
 
-    func cellClicked(sender: GridCell) {
+    func cellTapped(sender: UITapGestureRecognizer) {
+        guard let gridCell = sender.view as? GridCell where sender.state == .Began else {
+            return
+        }
+
         // clear everyone out
         subviews.forEach {
             $0.backgroundColor = UIColor.clearColor()
@@ -68,17 +77,17 @@ class GridView: UIView {
 
         // "draw" row and column of cell
         for i in 0 ..< 9 {
-            subviews[sender.identifier.row * 9 + i].backgroundColor = UIColor(colorLiteralRed: 160.0 / 255.0, green: 120.0 / 255.0, blue: 0.0, alpha: 0.5)
-            subviews[i * 9 + sender.identifier.col].backgroundColor = UIColor(colorLiteralRed: 160.0 / 255.0, green: 120.0 / 255.0, blue: 0.0, alpha: 0.5)
+            // a decent dark yellow color
+            subviews[gridCell.identifier.row * 9 + i].backgroundColor = UIColor(colorLiteralRed: 160.0 / 255.0, green: 120.0 / 255.0, blue: 0.0, alpha: 0.5)
+            subviews[i * 9 + gridCell.identifier.col].backgroundColor = UIColor(colorLiteralRed: 160.0 / 255.0, green: 120.0 / 255.0, blue: 0.0, alpha: 0.5)
             // UIColor.yellowColor()
         }
 
         // "draw" cell
-        sender.backgroundColor = UIColor.blackColor()
+        gridCell.backgroundColor = UIColor.blackColor()
     }
 
-    func cellHeld(sender: UILongPressGestureRecognizer) {
-        // find the button clicked on using tag assigned in createCells
+    func cellDoubleTapped(sender: UITapGestureRecognizer) {
         guard let gridCell = sender.view as? GridCell where sender.state == .Began else {
             return
         }
