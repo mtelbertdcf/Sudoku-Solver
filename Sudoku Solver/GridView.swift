@@ -11,20 +11,26 @@ import MtTools
 
 class GridView: UIView {
     required init?(coder: NSCoder) {
-        self.grid = Grid()
         super.init(coder: coder)
         self.createChildren()
     }
 
-    func setData(grid: Grid) -> Void {
-        for r in 0 ..< 9 {
-            for c in 0 ..< 9 {
-                let position = Position(r, c)
-                let cell = self.subviews[9 * r + c] as! GridCell
-                cell.displayedValue = grid[position]
+    var grid: Grid {
+        get {
+            return self._grid
+        }
+        set {
+            self._grid = newValue
+
+            // now populate all cells
+            for r in 0 ..< 9 {
+                for c in 0 ..< 9 {
+                    let position = Position(r, c)
+                    let cell = self.subviews[9 * r + c] as! GridCell
+                    cell.displayedValue = self._grid[position]
+                }
             }
         }
-        self.grid = grid
     }
 
     static let doCellClicked =
@@ -45,16 +51,13 @@ class GridView: UIView {
 
                 // "event" handler setup. iOS has at least 13 ways to do events, so let's try a few here
                 //child.addTarget(self, action: GridView.doCellClicked, forControlEvents: .TouchUpInside)
-                child.addGestureRecognizer({
-                    let gr = UITapGestureRecognizer(target: self, action: GridView.doCellClicked)
-                    gr.numberOfTapsRequired = 1
-                    return gr
-                }())
-                child.addGestureRecognizer({
-                    let gr = UILongPressGestureRecognizer(target: self, action: GridView.doCellDoubleTapped)
-                    gr.minimumPressDuration = 2.0
-                    return gr
-                }())
+                let doubleTap = UITapGestureRecognizer(target: self, action: GridView.doCellDoubleTapped)
+                doubleTap.numberOfTapsRequired = 2
+                child.addGestureRecognizer(doubleTap)
+                let singleTap = UITapGestureRecognizer(target: self, action: GridView.doCellClicked)
+                singleTap.numberOfTapsRequired = 1
+                singleTap.requireGestureRecognizerToFail(doubleTap)
+                child.addGestureRecognizer(singleTap)
 
                 self.addSubview(child)
             }
@@ -66,7 +69,8 @@ class GridView: UIView {
     }
 
     func cellTapped(sender: UITapGestureRecognizer) {
-        guard let gridCell = sender.view as? GridCell where sender.state == .Began else {
+        guard let gridCell = sender.view as? GridCell else {
+            //where sender.state == .Began else {
             return
         }
 
@@ -88,7 +92,8 @@ class GridView: UIView {
     }
 
     func cellDoubleTapped(sender: UITapGestureRecognizer) {
-        guard let gridCell = sender.view as? GridCell where sender.state == .Began else {
+        guard let gridCell = sender.view as? GridCell else {
+            //} where sender.state == .Began else {
             return
         }
 
@@ -118,7 +123,7 @@ class GridView: UIView {
     }
 
     private static let _sectionDividorWidth = CGFloat(4.0)
-    private var grid: Grid
+    private var _grid = Grid()
 
     // to draw my subview grid
     func drawGrid(rect: CGRect) {
@@ -140,5 +145,6 @@ class GridView: UIView {
         .lineTo(rect.width, thirdHeight * 2)
         .stroke()
     }
+
 }
 

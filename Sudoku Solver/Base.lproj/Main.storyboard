@@ -27,14 +27,14 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
                             </textField>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyS-AQ-Oex">
-                                <rect key="frame" x="10" y="477" width="36" height="30"/>
+                                <rect key="frame" x="20" y="477" width="36" height="30"/>
                                 <state key="normal" title="Clear"/>
                                 <connections>
                                     <action selector="buttonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gYt-a6-52w"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFf-hh-z0c">
-                                <rect key="frame" x="243" y="477" width="57" height="30"/>
+                                <rect key="frame" x="132" y="477" width="57" height="30"/>
                                 <state key="normal" title="Random"/>
                                 <connections>
                                     <action selector="buttonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SoE-47-7FX"/>
@@ -51,6 +51,13 @@
                                 <state key="normal" title="Input"/>
                                 <connections>
                                     <action selector="buttonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bpm-bl-NaW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vr9-nS-GJs">
+                                <rect key="frame" x="253" y="477" width="57" height="30"/>
+                                <state key="normal" title="Solve"/>
+                                <connections>
+                                    <action selector="buttonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V4p-iS-bK4"/>
                                 </connections>
                             </button>
                         </subviews>

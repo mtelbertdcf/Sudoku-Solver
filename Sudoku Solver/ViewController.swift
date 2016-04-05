@@ -26,6 +26,8 @@ class ViewController: UIViewController {
         buttonInput.layer.borderWidth = 1.0
         buttonInput.layer.borderColor = UIColor.blueColor().CGColor
         buttonInput.layer.cornerRadius = 5.0
+
+        self.textInput.text = self.evilPuzzle
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,22 +42,40 @@ class ViewController: UIViewController {
         case 0:
             if (representation.characters.count > 0) {
                 let newGrid = Grid(representation: representation)
-                self.gridView.setData(newGrid)
+                self.gridView.grid = newGrid
             } else {
-                self.gridView.setData(Grid())
+                self.gridView.grid = Grid()
             }
-            break;
+            break
 
         case 1:
-            self.gridView.setData(Grid())
-            break;
+            self.gridView.grid = Grid()
+            break
 
         case 2:
-            self.gridView.setData(Grid.random())
-            break;
+            self.gridView.grid = Grid.random()
+            break
+
+            case 3:
+                if let solved = Grid.solve(self.gridView.grid) {
+                    self.gridView.grid = solved
+                }
+                break
 
         default:
             break;
         }
     }
+
+    private let evilPuzzle =
+    "000000000" +
+            "590102370" +
+            "000036010" +
+            "305000460" +
+            "000000000" +
+            "064000203" +
+            "030790000" +
+            "072804039" +
+            "000000000"
+
 }

@@ -225,8 +225,12 @@ class Grid: CustomStringConvertible, Equatable {
     }
 
     func removeAll() {
-        // note: is there a fast way to set all array values?
-        self.grid = Array(count: self.size, repeatedValue: Array(count: self.size, repeatedValue: 0))
+        for r in 0 ..< self.size {
+            for c in 0 ..< self.size {
+                self.remove(Position(r, c))
+            }
+        }
+
     }
 
     func getPossiblePlacements(position: Position) -> [Int] {
@@ -313,7 +317,7 @@ func ==(rhs: Grid, lhs: Grid) -> Bool {
         return false
     }
 
-    let sideLength = rhs.size ** 2
+    let sideLength = rhs.size
 
     for r in 0 ..< sideLength {
         for c in 0 ..< sideLength {
