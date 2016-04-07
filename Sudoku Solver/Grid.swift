@@ -48,7 +48,7 @@ class Grid: CustomStringConvertible, Equatable {
         self.init(size: 3)
     }
 
-    convenience init(representation: String) {
+    convenience init?(representation: String) {
         let trimmed = Grid.trimString(representation)
         let size = trimmed.characters.count ** 0.25   // 4th root to get Z x Z where Z = size
         self.init(size: size)

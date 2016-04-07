@@ -21,6 +21,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
+        self.alert = MCAlert(self)
+        self.solverThread = NSThread(target: self, selector: #selector(ViewController.solverThreadEntry(_:)), object: self)
+
         // initialize looks
 
         buttonInput.layer.borderWidth = 1.0
@@ -41,8 +44,9 @@ class ViewController: UIViewController {
         switch (sender.tag) {
         case 0:
             if (representation.characters.count > 0) {
-                let newGrid = Grid(representation: representation)
-                self.gridView.grid = newGrid
+                if let newGrid = Grid(representation: representation) {
+                    self.gridView.grid = newGrid
+                }
             } else {
                 self.gridView.grid = Grid()
             }
@@ -59,6 +63,8 @@ class ViewController: UIViewController {
             case 3:
                 if let solved = Grid.solve(self.gridView.grid) {
                     self.gridView.grid = solved
+                } else {
+                    alert.message("Puzzle cannot be solved")
                 }
                 break
 
@@ -66,6 +72,14 @@ class ViewController: UIViewController {
             break;
         }
     }
+
+    func solverThreadEntry(viewController: ViewController) {
+
+    }
+
+    private var alert: MCAlert!
+
+    private var solverThread: NSThread!
 
     private let evilPuzzle =
     "000000000" +
