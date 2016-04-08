@@ -37,6 +37,8 @@ class GridView: UIView {
 #selector(GridView.cellTapped(_:))
     static let doCellDoubleTapped =
 #selector(GridView.cellDoubleTapped(_:))
+    static let doCellHeld =
+#selector(GridView.cellHeld(_:))
 
     func createChildren() -> Void {
         let childWidth = self.bounds.width / 9
@@ -58,6 +60,9 @@ class GridView: UIView {
                 singleTap.numberOfTapsRequired = 1
                 singleTap.requireGestureRecognizerToFail(doubleTap)
                 child.addGestureRecognizer(singleTap)
+                let held = UILongPressGestureRecognizer(target: self, action: GridView.doCellHeld)
+                held.minimumPressDuration = 1.0
+                child.addGestureRecognizer(held)
 
                 self.addSubview(child)
             }
@@ -119,6 +124,9 @@ class GridView: UIView {
             self.grid.remove(gridCell.identifier)
             gridCell.displayedValue = 0
         }
+    }
+
+    func cellHeld(sender: UILongPressGestureRecognizer) {
 
     }
 

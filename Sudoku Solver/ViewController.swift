@@ -42,25 +42,33 @@ class ViewController: UIViewController {
         let representation = self.textInput.text!
 
         switch (sender.tag) {
-        case 0:
-            if (representation.characters.count > 0) {
-                if let newGrid = Grid(representation: representation) {
-                    self.gridView.grid = newGrid
+            case 0:
+                if (representation.characters.count > 0) {
+                    if let newGrid = Grid(representation: representation) {
+                        self.gridView.grid = newGrid
+                        NSThread.detachNewThreadSelector(#selector(ViewController.solverThreadEntry(_:)), toTarget: self, withObject: self)
+                    }
+                } else {
+                    self.gridView.grid = Grid()
                 }
-            } else {
+                break
+
+            case 1:
                 self.gridView.grid = Grid()
-            }
-            break
+                break
 
-        case 1:
-            self.gridView.grid = Grid()
-            break
-
-        case 2:
-            self.gridView.grid = Grid.random()
-            break
+            case 2:
+                self.gridView.grid = Grid.random()
+                break
 
             case 3:
+                solving.lock()
+
+                while (solution == nil) {
+                    solving.wait()
+                }
+
+                solving.unlock()
                 if let solved = Grid.solve(self.gridView.grid) {
                     self.gridView.grid = solved
                 } else {
@@ -68,18 +76,30 @@ class ViewController: UIViewController {
                 }
                 break
 
-        default:
-            break;
+            default:
+                break
         }
     }
 
     func solverThreadEntry(viewController: ViewController) {
+        solving.lock()
+
+        defer {
+            solving.unlock()
+        }
+
+        if let solved = Grid.solve(viewController.gridView.grid) {
+            solution = solved
+            solving.signal()
+        }
 
     }
 
     private var alert: MCAlert!
 
+    private var solving: NSCondition = NSCondition()
     private var solverThread: NSThread!
+    private var solution: Grid!
 
     private let evilPuzzle =
     "000000000" +
