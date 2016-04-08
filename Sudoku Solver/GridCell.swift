@@ -32,7 +32,7 @@ class GridCell: UIButton {
         self.layer.cornerRadius = 4.0
 
         if let label = self.titleLabel {
-            label.textColor = UIColor.darkTextColor()
+            //label.textColor = UIColor.darkTextColor()
             label.font = UIFont(name: "American Typewriter", size: self.bounds.height * 0.75)
             label.hidden = false
         }
@@ -55,8 +55,7 @@ class GridCell: UIButton {
         }
         set {
             self.setTitle(String(newValue), forState: .Normal)
-//            self.titleLabel?.textColor = UIColor.blackColor()
-//            self.setNeedsDisplay()
+            //self.titleLabel?.textColor = UIColor.darkTextColor()
         }
     }
 

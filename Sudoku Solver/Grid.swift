@@ -10,7 +10,11 @@ import MtTools
 
 //typealias Position = (row:Int, col:Int)
 
-struct Position: Equatable, Hashable {
+struct Position: Equatable, Hashable, CustomStringConvertible, CustomDebugStringConvertible {
+    var debugDescription: String {
+        return description
+    }
+
     init() {
 
     }
@@ -18,6 +22,10 @@ struct Position: Equatable, Hashable {
     init(_ row: Int, _ col: Int) {
         self.row = row
         self.col = col
+    }
+
+    var description: String {
+        get { return "(\(row),\(col))"}
     }
 
     var hashValue: Int {
@@ -111,24 +119,26 @@ func ==(rhs: Position, lhs: Position) -> Bool {
     // class methods
 
     static func solve(grid: Grid, callback: ((Grid) -> Void)? = nil) -> Grid? {
-        grid.makeSinglePlacements()
+        let clone = Grid(grid: grid)    // copy so we dont fuck up original during recursion (swift arrays are fun!)
+        clone.makeSinglePlacements()
 
-        if (grid.isSolved) {
-            return grid
+        if (clone.isSolved) {
+            return clone
         }
 
-        if (grid.isUnsolvable) {
+        if (clone.isUnsolvable) {
             return nil
         }
 
         // try just the first position, and recurse down for next (their first) position
-        let openPosition = grid.getOpenPositions().first!
-        let possibilities = grid.getPossiblePlacements(openPosition)
+        let openPosition = clone.getOpenPositions().first!
+        let possibilities = clone.getPossiblePlacements(openPosition)
         for possibility in possibilities {
-            let clone = Grid(grid: grid)    // copy so we dont fuck up original during recursion (swift arrays are fun!)
-            try! clone.place(possibility, position: openPosition)
-            callback?(clone)
-            if let solution = Grid.solve(clone, callback: callback) {
+            let workingCopy = Grid(grid: clone)
+            try! workingCopy.place(possibility, position: openPosition)
+            callback?(workingCopy)
+            if let solution = Grid.solve(workingCopy, callback: callback) {
+                callback?(solution)
                 return solution
             }
         }
@@ -252,7 +262,13 @@ func ==(rhs: Position, lhs: Position) -> Bool {
                 self.remove(Position(r, c))
             }
         }
+    }
 
+    typealias PositionPossibilies = (position: Position, values: [Int])
+    typealias OpenMap = [PositionPossibilies]
+
+    func getOpenMap() -> OpenMap {
+        return self.getOpenPositions().map({ return PositionPossibilies(position: $0, values: self.getPossiblePlacements($0)) })
     }
 
     func getPossiblePlacements(position: Position) -> [Int] {
@@ -268,11 +284,20 @@ func ==(rhs: Position, lhs: Position) -> Bool {
     }
 
     func getOpenPositions() -> [Position] {
+        return getPositions(==, test: 0)
+    }
+
+    func getClosedPositions() -> [Position] {
+        return getPositions(!=, test: 0)
+    }
+
+    func getPositions(op: (rhs:Int, lhs:Int)->Bool, test: Int) -> [Position] {
         var positions: [Position] = []
 
         for r in 0 ..< self.size {
             for c in 0 ..< self.size {
-                if (self.grid[r][c] == 0) {
+                let position = Position(r,c)
+                if op(rhs: self[position], lhs: test) {
                     positions.append(Position(r, c))
                 }
             }
