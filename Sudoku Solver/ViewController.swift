@@ -22,7 +22,6 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
 
         self.alert = MCAlert(self)
-        self.solverThread = NSThread(target: self, selector: #selector(ViewController.solverThreadEntry(_:)), object: self)
 
         // initialize looks
 
@@ -46,7 +45,10 @@ class ViewController: UIViewController {
                 if (representation.characters.count > 0) {
                     if let newGrid = Grid(representation: representation) {
                         self.gridView.grid = newGrid
-                        NSThread.detachNewThreadSelector(#selector(ViewController.solverThreadEntry(_:)), toTarget: self, withObject: self)
+                        self.solution = nil
+                        self.solutionSearched = false
+                        // todo: this next bit won't do, because the grid passed in to solve is "frozen" at this point
+                        NSThread.detachNewThreadSelector(#selector(ViewController.solverThreadEntry(_:)), toTarget: self, withObject: newGrid)
                     }
                 } else {
                     self.gridView.grid = Grid()
@@ -62,18 +64,13 @@ class ViewController: UIViewController {
                 break
 
             case 3:
-                solving.lock()
-
-                while (solution == nil) {
-                    solving.wait()
-                }
-
-                solving.unlock()
-                if let solved = Grid.solve(self.gridView.grid) {
-                    self.gridView.grid = solved
-                } else {
+                getSolution()
+                if (solution == nil) {
                     alert.message("Puzzle cannot be solved")
+                } else {
+                    self.gridView.grid = solution
                 }
+
                 break
 
             default:
@@ -81,25 +78,35 @@ class ViewController: UIViewController {
         }
     }
 
-    func solverThreadEntry(viewController: ViewController) {
-        solving.lock()
+    func getSolution() {
+        self.solving.lock()
 
         defer {
-            solving.unlock()
+            self.solving.unlock()
         }
 
-        if let solved = Grid.solve(viewController.gridView.grid) {
-            solution = solved
-            solving.signal()
+        while (!self.solutionSearched) {
+            self.solving.wait()
+        }
+    }
+
+    @objc func solverThreadEntry(grid: Grid) {
+        self.solving.lock()
+
+        defer {
+            self.solving.unlock()
         }
 
+        self.solution = Grid.solve(grid)
+        self.solutionSearched = true
+        self.solving.signal()
     }
 
     private var alert: MCAlert!
 
     private var solving: NSCondition = NSCondition()
-    private var solverThread: NSThread!
     private var solution: Grid!
+    private var solutionSearched = false
 
     private let evilPuzzle =
     "000000000" +

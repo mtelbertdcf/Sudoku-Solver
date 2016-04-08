@@ -33,7 +33,8 @@ func ==(rhs: Position, lhs: Position) -> Bool {
 }
 
 
-class Grid: CustomStringConvertible, Equatable {
+@objc class Grid: NSObject {
+
     typealias Callback = (Grid) -> Void
 
     required init(grid: Grid) {
@@ -44,7 +45,7 @@ class Grid: CustomStringConvertible, Equatable {
         self.grid = Array(count: size ** 2, repeatedValue: Array(count: size ** 2, repeatedValue: 0))
     }
 
-    convenience init() {
+    override convenience init() {
         self.init(size: 3)
     }
 
@@ -77,7 +78,7 @@ class Grid: CustomStringConvertible, Equatable {
         return false
     }
 
-    var description: String {
+    override var description: String {
         let ret: NSMutableString = ""
 
         let segmentSize = self.size ** 0.5
@@ -159,16 +160,37 @@ class Grid: CustomStringConvertible, Equatable {
 
     // methods
 
-    func clone() -> Grid {
+    override func copy() -> AnyObject {
         return self.dynamicType.init(grid: self)
     }
 
-    func valueAt(position: Position) -> Int {
-        return self.grid[position.row][position.col]
+    override func isEqual(object: AnyObject?) -> Bool {
+        guard let lhs = object as? Grid else {
+            return false
+        }
+
+        if (self.size != lhs.size) {
+            return false
+        }
+
+        for row in 0 ..< self.size {
+            for col in 0 ..< self.size {
+                let position = Position(row, col)
+                if (self[position] != lhs[position]) {
+                    return false
+                }
+            }
+        }
+
+        return true
+    }
+
+    @available(*, deprecated) func valueAt(position: Position) -> Int {
+        return self[position]
     }
 
     subscript(position: Position) -> Int {
-        return self.valueAt(position)
+        return self.grid[position.row][position.col]
     }
 
     func place(value: Int, position: Position) throws {
@@ -263,12 +285,13 @@ class Grid: CustomStringConvertible, Equatable {
         let trimmed = Grid.trimString(from)
         var row: Int = 0, col: Int = 0
         for i in trimmed.startIndex ..< trimmed.endIndex {
-            let v = Int(String(trimmed[i]))!
-
-            if (v == 0) {
-                self.remove(Position(row, col))
-            } else {
-                try! self.place(v, position: Position(row, col))
+            let position = Position(row, col)
+            if let value = Int(String(trimmed[i])) {
+                if (value == 0) {
+                    self.remove(position)
+                } else {
+                    self.tryPlace(value, position: position)
+                }
             }
 
             // populate each row of my 2D array
@@ -312,21 +335,3 @@ class Grid: CustomStringConvertible, Equatable {
     private var grid: [[Int]];
 }
 
-func ==(rhs: Grid, lhs: Grid) -> Bool {
-    if (rhs.size != lhs.size) {
-        return false
-    }
-
-    let sideLength = rhs.size
-
-    for r in 0 ..< sideLength {
-        for c in 0 ..< sideLength {
-            let position = Position(r, c)
-            if (rhs[position] != lhs[position]) {
-                return false
-            }
-        }
-    }
-
-    return true
-}

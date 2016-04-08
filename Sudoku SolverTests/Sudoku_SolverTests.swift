@@ -103,14 +103,14 @@ class Sudoku_SolverTests: XCTestCase {
 
         let s = grid1.rawString
 
-        let grid3 = Grid(representation: s)
+        let grid3 = Grid(representation: s)!
         XCTAssertNotNil(grid3)
         XCTAssertEqual(grid3.valueAt(Position(0, 0)), grid1.valueAt(Position(0, 0)))
 
         grid3.removeAll()
         XCTAssertEqual(grid3.getOpenPositions().count, 81)
 
-        grid3.fromString(s)
+        grid3.readValue(s)
         XCTAssertLessThan(grid3.getOpenPositions().count, 81)
     }
 
@@ -128,7 +128,7 @@ class Sudoku_SolverTests: XCTestCase {
     }
 
     private func checkPuzzle(s: String) {
-        var g = Grid(representation: s)
+        var g = Grid(representation: s)!
         XCTAssertNotEqual(g.getOpenPositions().count, 81)
         var solution = Grid.solve(g)
 
